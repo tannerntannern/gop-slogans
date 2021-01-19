@@ -1,0 +1,1 @@
+# GOP Slogan Image Generator

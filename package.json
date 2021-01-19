@@ -1,6 +1,7 @@
 {
     "scripts": {
-        "dev": "ts-node-dev --respawn --watch --transpile-only dev-server.ts"
+        "dev": "ts-node-dev --respawn --watch --transpile-only dev-server.ts",
+        "now-build": "yum install libuuid-devel libmount-devel && cp /lib64/{libuuid,libmount,libblkid}.so.1 node_modules/canvas/build/Release/"
     },
     "dependencies": {
         "express": "^4.17.1",
