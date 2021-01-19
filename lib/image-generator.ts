@@ -1,13 +1,16 @@
 import { resolve } from 'path';
+import { registerFont } from 'canvas';
 import shuffleSeed from 'shuffle-seed';
 import text2png from 'text2png';
 import { things, actions, targets } from './liberal';
+
+// https://github.com/vercel/vercel/issues/3460#issuecomment-681925304
+registerFont(resolve(__dirname, '../public/fonts/impact.ttf'), { family: 'Impact' });
 
 export const generateImage = (seed: string) => {
     const slogan = generateSlogan(seed).toUpperCase();
     return text2png(slogan, {
         font: '80px Impact',
-        localFontPath: resolve(__dirname, '../fonts/impact.ttf'),
         textAlign: 'center',
         color: 'white',
         backgroundColor: 'black',
