@@ -5,5 +5,5 @@ app.use(express.static('./public'));
 
 const port = 3000;
 app.listen(port, () => {
-    console.log(`Dev server running. Example URL: http://localhost:3000/api/image/0`);
+    console.log(`Dev server running at http://localhost:${port}/`);
 });

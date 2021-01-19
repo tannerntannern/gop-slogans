@@ -63,7 +63,6 @@ export const targets = [
     'babies',
     'the coal industry',
     'chick-fil-a',
-    'christopher columbus',
     'abstinence-only education',
     'the american dream',
     'stay-at-home moms',
