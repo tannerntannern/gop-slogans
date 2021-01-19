@@ -28,9 +28,7 @@ export const things = [
 
 export const actions = [
     'marry',
-    'devour',
     'abort',
-    'eat',
     'eradicate',
     'control',
     'wreck',
