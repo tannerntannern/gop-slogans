@@ -1,5 +1,5 @@
 import express from 'express';
-import { generateSlogan } from '../lib/image-generator';
+import { generateImage } from '../lib/image-generator';
 
 const app = express();
 
@@ -8,7 +8,8 @@ type PathParams = {
 };
 
 app.get<PathParams>('/api/image/:seed', (req, res) => {
-    res.send(generateSlogan(req.params.seed));
+    res.setHeader('Content-Type', 'image/png');
+    res.send(generateImage(req.params.seed));
 });
 
 export default app;
