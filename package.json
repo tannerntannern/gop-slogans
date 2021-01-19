@@ -1,0 +1,6 @@
+{
+    "scripts": {},
+    "devDependencies": {
+        "typescript": "^4.1.3"
+    }
+}
