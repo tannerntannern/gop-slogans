@@ -21,12 +21,18 @@ export const generateImage = (seed: string) => {
 };
 
 export const generateSlogan = (seed: string) => {
-    const thing = pickRandom(things, seed);
+    const [thing, isPlural] = pickRandom(things, seed);
+    const actionVerb = pickRandom(actionVerbs, seed)[isPlural ? 1 : 0];
     const action = pickRandom(actions, seed);
     const target = pickRandom(targets, seed);
 
-    return `${thing} will ${action} ${target}`;
+    return `${thing} ${actionVerb} ${action} ${target}`;
 };
+
+const actionVerbs: [singluar: string, plural: string][] = [
+    ['will', 'will'],
+    ['is going to', 'are going to'],
+];
 
 const pickRandom = <T>(arr: T[], seed: string): T =>
     shuffleSeed.shuffle(arr, seed).pop()!;

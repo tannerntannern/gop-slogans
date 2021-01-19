@@ -1,5 +1,5 @@
 import express from 'express';
-import { generateSlogan, generateImage } from '../lib/image-generator';
+import { generateSlogan, generateImage } from '../lib/generator';
 
 const isVercel = process.env.VERCEL == '1';
 const app = express();
