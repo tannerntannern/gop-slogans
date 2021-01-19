@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>GOP Slogan Generator</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@exampledev/new.css@1/new.min.css">
+    </head>
+    <body>
+        <h1>GOP Slogan Generator</h1>
+        <p>
+            API for generating republican fear-mongering slogans. Link directly to an image by visiting
+            <a href="/api/image/random_seed" target="__blank">/api/image/random_seed</a>.
+            You can also get the raw text version by visiting
+            <a href="/api/text/random_seed" target="__blank">/api/text/random_seed</a>.
+        </p>
+        <h1>Examples:</h1>
+        <div id="examples"></div>
+        <script>
+            var examplesDiv = document.getElementById('examples');
+            var seeds = [0,0,0,0,0,0,0,0,0,0].map(_ => Math.round(Math.random() * 100000));
+            for (var seed of seeds) {
+                var href = '/api/image/' + seed;
+                var newLink = document.createElement('a');
+                var newImg = document.createElement('img');
+                newLink.setAttribute('href', href);
+                newLink.setAttribute('target', '__blank');
+                newImg.setAttribute('src', href);
+                newLink.appendChild(newImg);
+                examplesDiv.appendChild(newLink);
+            }
+        </script>
+    </body>
+</html>

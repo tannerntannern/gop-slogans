@@ -5,7 +5,8 @@ import text2png from 'text2png';
 export const generateImage = (seed: string) => {
     const slogan = generateSlogan(seed).toUpperCase();
     return text2png(slogan, {
-        font: '80px Impact',
+        font: '80px Arial',
+        textAlign: 'center',
         color: 'white',
         backgroundColor: 'black',
         lineSpacing: 10,
@@ -14,7 +15,7 @@ export const generateImage = (seed: string) => {
     }) as Buffer;
 };
 
-const generateSlogan = (seed: string) => {
+export const generateSlogan = (seed: string) => {
     const thing = pickRandom(things, seed);
     const action = pickRandom(actions, seed);
     const target = pickRandom(targets, seed);

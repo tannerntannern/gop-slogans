@@ -1,7 +1,6 @@
 // NOTE: these may have to be all caps since we can't easily distinguish between names and objects
 export const things = [
     'antifas',
-    'witches',
     'windmill cancer',
     'homosexuals',
     'the transgenders',
