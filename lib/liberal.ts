@@ -8,7 +8,6 @@ export const things: [thing: string, isPlural: boolean][] = [
     ['george soros', false],
     ['anarchists', true],
     ['commies', true],
-    ['left-wing facists', true],
     ['bisexuals', true],
     ['netflix', false],
     ['nancy pelosi', false],
@@ -20,8 +19,6 @@ export const things: [thing: string, isPlural: boolean][] = [
     ['puerto rico', false],
     ['the clintons', true],
     ['obama', false],
-    ['globalization', false],
-    ['ben & jerry\'s', false],
     ['organic produce', false],
 ];
 
