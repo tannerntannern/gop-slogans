@@ -1,6 +1,7 @@
 {
     "scripts": {
         "dev": "ts-node-dev --respawn --watch --transpile-only dev-server.ts",
+        "imgcheck": "ts-node --transpile-only scripts/img-check.ts",
         "now-build": "yum install libuuid-devel libmount-devel && cp /lib64/{libuuid,libmount,libblkid}.so.1 node_modules/canvas/build/Release/"
     },
     "dependencies": {

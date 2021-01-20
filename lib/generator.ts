@@ -20,6 +20,10 @@ export const generateImage = (seed: string) => {
     }) as Buffer;
 };
 
+export const imgBasePath = resolve(__dirname, '../public/img/');
+export const resolveImage = (subDir: string, name: string, variant: number) =>
+    resolve(imgBasePath, subDir, `${name.replace(/\s/g, '_')}${variant}.jpg`);
+
 export const generateSlogan = (seed: string) => {
     const [thing, isPlural] = pickRandom(things, seed);
     const actionVerb = pickRandom(actionVerbs, seed)[isPlural ? 1 : 0];
