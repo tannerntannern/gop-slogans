@@ -25,7 +25,7 @@
         <a href="https://github.com/tannerntannern/gop-slogans">Website Source</a>
         <script>
             var examplesDiv = document.getElementById('examples');
-            var seeds = [0,0,0,0,0,0,0,0,0,0].map(_ => Math.round(Math.random() * 99999999));
+            var seeds = [0,0,0,0,0].map(_ => Math.round(Math.random() * 99999999));
             for (var seed of seeds) {
                 var href = '/api/image/' + seed;
                 var newLink = document.createElement('a');

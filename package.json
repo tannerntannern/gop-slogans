@@ -1,13 +1,13 @@
 {
     "scripts": {
         "dev": "ts-node-dev --respawn --watch --transpile-only dev-server.ts",
-        "imgcheck": "ts-node --transpile-only scripts/img-check.ts",
-        "now-build": "yum install libuuid-devel libmount-devel && cp /lib64/{libuuid,libmount,libblkid}.so.1 node_modules/canvas/build/Release/"
+        "imgcheck": "ts-node --transpile-only scripts/img-check.ts"
     },
     "dependencies": {
         "express": "^4.17.1",
-        "shuffle-seed": "^1.1.6",
-        "text2png": "^2.3.0"
+        "express-async-handler": "^1.1.4",
+        "jimp": "^0.16.1",
+        "shuffle-seed": "^1.1.6"
     },
     "devDependencies": {
         "@types/express": "^4.17.11",
