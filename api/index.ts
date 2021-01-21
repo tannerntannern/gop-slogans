@@ -11,7 +11,7 @@ type PathParams = {
 
 app.get<PathParams>('/api/image/:seed', asyncHandler(async (req, res) => {
     const cacheSeconds = isVercel ? '300' : '1';
-    res.setHeader('Content-Type', 'image/png');
+    res.setHeader('Content-Type', 'image/jpeg');
     res.setHeader('Cache-Control', `s-max-age=${cacheSeconds}, stale-while-revalidate`);
     res.send(await generateImage(req.params.seed));
 }));

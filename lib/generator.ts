@@ -5,8 +5,8 @@ import jimp from 'jimp';
 import { Font } from '@jimp/plugin-print';
 import { things, actions, targets } from './liberal';
 
-const imgWidth = 850;
-const imgHeight = 850;
+const imgWidth = 800;
+const imgHeight = 800;
 const imgCenter = [imgWidth / 2, imgHeight / 2] as const;
 const margin = 48;
 
@@ -45,8 +45,10 @@ export const generateImage = async (seed: string) => {
     return await (
         thingLayer
             .cover(imgWidth, imgHeight)
+            .posterize(8)
+            .color([{ apply: 'mix', params: ['#F00', 30] }])
             .blit(textComposite, 0, 0)
-    ).getBufferAsync('image/png');
+    ).getBufferAsync('image/jpeg');
 };
 
 const pickImage = async (subDir: string, name: string, seed: string) => {
