@@ -13,11 +13,11 @@ const margin = 48;
 export const generateImage = async (seed: string) => {
     const [thing, isPlural] = pickRandom(things, seed);
     const slogan = generateSlogan(seed).toUpperCase();
-    const learnMore = 'More @ https://gop-slogans.vercel.app';
+    const learnMore = 'Learn more at https://gop-slogans.vercel.app';
 
     const [impactFont, otherFont, textLayer, thingLayer, textMask] = await Promise.all([
         jimp.loadFont(resolve(fontBasePath, 'impact.ttf.fnt')),
-        jimp.loadFont(jimp.FONT_SANS_32_WHITE),
+        jimp.loadFont(resolve(fontBasePath, 'impact28.ttf.fnt')),
         jimp.read(imgWidth, imgHeight, 0x000000),
         pickImage('liberal-things', thing, seed).then(buf => jimp.read(buf)),
         pickImage('masks', 'mask', seed).then(buf => jimp.read(buf)),
@@ -36,11 +36,9 @@ export const generateImage = async (seed: string) => {
         .mask(textMask.cover(imgWidth, imgHeight), 0, 0)
         .print(
             otherFont,
-            imgWidth,
-            imgHeight,
-            { text: learnMore, alignmentX: jimp.HORIZONTAL_ALIGN_CENTER, alignmentY: jimp.VERTICAL_ALIGN_MIDDLE },
-            imgWidth,
-            imgHeight,
+            12,
+            imgHeight - 40,
+            learnMore,
         )
         .shadow({ blur: 4, x: 0, y: 0, size: 1, opacity: 1 });
 
