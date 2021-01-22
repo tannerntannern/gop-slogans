@@ -14,7 +14,7 @@ const checkImages = (predefinedItems: string[], imgSubDir: string) => {
 
     console.info(`Ensuring each item in list has at least one image in ${imgSubDir}...`);
     for (let image of readdirSync(resolve(imgBasePath, imgSubDir))) {
-        const patternMatch = /^([\w-]+)\d+\.\w+$/.exec(image);
+        const patternMatch = /^([\w-.]+)\d+\.\w*$/.exec(image);
         if (!patternMatch || !(predefinedItems.includes(patternMatch[1].replace(/_/g, ' '))))
             misnamedImages.push(image);
     }
