@@ -3,6 +3,17 @@
     <head>
         <title>GOP Slogan Generator</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@exampledev/new.css@1/new.min.css">
+        <style>
+            /* For images that haven't loaded yet */
+            img.not-loaded {
+                width: 500px;
+                height: 500px;
+                background-position: center center;
+                background-repeat: no-repeat;
+                background-size: 5em;
+                background-image: url("/img/loader.gif");
+            }
+        </style>
     </head>
     <body>
         <h1>GOP Slogan Generator</h1>
@@ -28,13 +39,15 @@
         <p id="examples"></p>
         <script>
             var examplesDiv = document.getElementById('examples');
-            var seeds = [0,0,0,0,0].map(_ => Math.round(Math.random() * 99999999));
+            var seeds = [0,0,0,0,0].map(_ => Math.round(Math.random() * 12345678));
             for (var seed of seeds) {
                 var href = '/api/image/' + seed;
                 var newLink = document.createElement('a');
                 var newImg = document.createElement('img');
                 newLink.setAttribute('href', href);
                 newLink.setAttribute('target', '__blank');
+                newImg.setAttribute('class', 'not-loaded');
+                newImg.setAttribute('onload', 'this.setAttribute("class", "")');
                 newImg.setAttribute('src', href);
                 newLink.appendChild(newImg);
                 examplesDiv.appendChild(newLink);
