@@ -1,6 +1,6 @@
 import { promises } from 'fs';
 import { resolve } from 'path';
-import shuffleSeed from 'shuffle-seed';
+import { alea } from 'seedrandom';
 import jimp from 'jimp';
 import { things, actions, targets } from './liberal';
 
@@ -73,10 +73,10 @@ export const generateSlogan = (seed: string) => {
     // NOTE: we need to use different (but stable) seeds for each component selection, because if
     // two of the arrays happened to be the same length, the same pairs of components would always
     // be chosen together.
-    const [thing, isPlural] = pickRandom(things, `${seed}1`);
-    const actionVerb = pickRandom(actionVerbs, `${seed}2`)[isPlural ? 1 : 0];
-    const action = pickRandom(actions, `${seed}3`);
-    const target = pickRandom(targets, `${seed}4`);
+    const [thing, isPlural] = pickRandom(things, `a${seed}1`);
+    const actionVerb = pickRandom(actionVerbs, `b${seed}2`)[isPlural ? 1 : 0];
+    const action = pickRandom(actions, `c${seed}3`);
+    const target = pickRandom(targets, `d${seed}4`);
 
     const slogan = `${thing} ${actionVerb} ${action} ${target}`;
 
@@ -88,5 +88,7 @@ const actionVerbs: [singluar: string, plural: string][] = [
     ['is going to', 'are going to'],
 ];
 
-const pickRandom = <T>(arr: T[], seed: string): T =>
-    shuffleSeed.shuffle(arr, seed).pop()!;
+const pickRandom = <T>(arr: T[], seed: string): T => {
+    const rng = alea(seed);
+    return arr[Math.floor(rng() * arr.length)];
+};
