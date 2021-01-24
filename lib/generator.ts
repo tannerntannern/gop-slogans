@@ -2,26 +2,30 @@ import { promises } from 'fs';
 import { resolve } from 'path';
 import shuffleSeed from 'shuffle-seed';
 import jimp from 'jimp';
-import { Font } from '@jimp/plugin-print';
 import { things, actions, targets } from './liberal';
 
 const imgWidth = 800;
-const imgHeight = 800;
+const imgHeight = 700;
 const imgCenter = [imgWidth / 2, imgHeight / 2] as const;
 const margin = 48;
 
 export const generateImage = async (seed: string) => {
-    const [thing, isPlural] = pickRandom(things, seed);
-    const slogan = generateSlogan(seed).toUpperCase();
+    const { slogan, thing, target } = generateSlogan(seed);
     const learnMore = 'Learn more at https://gop-slogans.vercel.app';
 
-    const [impactFont, otherFont, textLayer, thingLayer, textMask] = await Promise.all([
+    const [impactFont, otherFont, textLayer, thingLayer, targetLayer, textMask, splitMask] = await Promise.all([
         jimp.loadFont(resolve(fontBasePath, 'impact.ttf.fnt')),
         jimp.loadFont(resolve(fontBasePath, 'impact28.ttf.fnt')),
         jimp.read(imgWidth, imgHeight, 0x000000),
         pickImage('liberal-things', thing, seed).then(buf => jimp.read(buf)),
+        pickImage('liberal-targets', target, seed).then(buf => jimp.read(buf)),
         pickImage('masks', 'mask', seed).then(buf => jimp.read(buf)),
+        pickImage('masks', 'split', seed).then(buf => jimp.read(buf)),
     ]);
+
+    const targetComposite = targetLayer
+        .cover(imgWidth, imgHeight)
+        .mask(splitMask.cover(imgWidth, imgHeight), 0, 0);
 
     // https://github.com/oliver-moran/jimp/tree/master/packages/plugin-print
     const textComposite = textLayer
@@ -29,7 +33,7 @@ export const generateImage = async (seed: string) => {
             impactFont,
             margin, // NOTE: not sure why these wouldn't be the center of the the image, but this seems to center it
             margin,
-            { text: slogan, alignmentX: jimp.HORIZONTAL_ALIGN_CENTER, alignmentY: jimp.VERTICAL_ALIGN_MIDDLE },
+            { text: slogan.toUpperCase(), alignmentX: jimp.HORIZONTAL_ALIGN_CENTER, alignmentY: jimp.VERTICAL_ALIGN_MIDDLE },
             imgWidth - 2*margin,
             imgHeight - 2*margin,
         )
@@ -46,6 +50,7 @@ export const generateImage = async (seed: string) => {
         thingLayer
             .cover(imgWidth, imgHeight)
             .posterize(8)
+            .blit(targetComposite, 0, 0)
             .color([{ apply: 'mix', params: ['#F00', 30] }])
             .blit(textComposite, 0, 0)
     ).getBufferAsync('image/jpeg');
@@ -65,12 +70,17 @@ export const resolveImage = (subDir: string, name: string, variant: number) =>
     resolve(imgBasePath, subDir, `${name.replace(/\s/g, '_')}${variant}.jpg`);
 
 export const generateSlogan = (seed: string) => {
-    const [thing, isPlural] = pickRandom(things, seed);
-    const actionVerb = pickRandom(actionVerbs, seed)[isPlural ? 1 : 0];
-    const action = pickRandom(actions, seed);
-    const target = pickRandom(targets, seed);
+    // NOTE: we need to use different (but stable) seeds for each component selection, because if
+    // two of the arrays happened to be the same length, the same pairs of components would always
+    // be chosen together.
+    const [thing, isPlural] = pickRandom(things, `${seed}1`);
+    const actionVerb = pickRandom(actionVerbs, `${seed}2`)[isPlural ? 1 : 0];
+    const action = pickRandom(actions, `${seed}3`);
+    const target = pickRandom(targets, `${seed}4`);
 
-    return `${thing} ${actionVerb} ${action} ${target}`;
+    const slogan = `${thing} ${actionVerb} ${action} ${target}`;
+
+    return { thing, action, target, slogan };
 };
 
 const actionVerbs: [singluar: string, plural: string][] = [

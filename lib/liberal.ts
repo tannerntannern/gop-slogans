@@ -15,15 +15,15 @@ export const things: [thing: string, isPlural: boolean][] = [
     ['illegal aliens', true],
     ['black lives matter', false],
     ['taco trucks', true],
-    ['puerto rico', false],
+    ['joe biden', false],
     ['legalized marijuana', false],
     ['the clintons', true],
     ['obama', false],
     ['organic produce', false],
+    ['radical liberals', true],
 ];
 
 export const actions = [
-    'marry',
     'abort',
     'eradicate',
     'control',
@@ -48,7 +48,6 @@ export const actions = [
     'ban',
     'overthrow',
     'censor',
-    'touch',
     'repeal',
 ];
 
@@ -73,7 +72,6 @@ export const targets = [
     'traditional values',
     'fox news',
     'your religion',
-    'your private thoughts',
     'small business',
     'private property',
 ];

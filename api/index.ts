@@ -12,13 +12,13 @@ type PathParams = {
 app.get<PathParams>('/api/image/:seed', asyncHandler(async (req, res) => {
     const cacheSeconds = isVercel ? '300' : '1';
     res.setHeader('Content-Type', 'image/jpeg');
-    res.setHeader('Cache-Control', `s-max-age=${cacheSeconds}, stale-while-revalidate`);
+    res.setHeader('Cache-Control', `s-maxage=${cacheSeconds}, stale-while-revalidate`);
     res.send(await generateImage(req.params.seed));
 }));
 
 app.get<PathParams>('/api/text/:seed', (req, res) => {
     res.setHeader('Content-Type', 'text/plain');
-    res.send(generateSlogan(req.params.seed));
+    res.send(generateSlogan(req.params.seed).slogan);
 });
 
 export default app;
